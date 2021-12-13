@@ -39,7 +39,7 @@ public class GithubProvider {
     public GithubUser getUser(String accessToken){
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url("https://api.github.com/user")
+                .url("https://api.github.com/user?access_token="+ accessToken)
                 .header("Authorization", "token " + accessToken)
                 .build();
         try {
@@ -48,6 +48,7 @@ public class GithubProvider {
             GithubUser githubUser = JSON.parseObject(string, GithubUser.class);
             return githubUser;
         } catch (IOException e) {
+            e.printStackTrace();
         }
         return null;
     }
